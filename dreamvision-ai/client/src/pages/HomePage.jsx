@@ -10,6 +10,8 @@ function HomePage(props) {
   const [showModal, setShowModal] = useState(false);
   const [currentPrompt, setCurrentPrompt] = useState('');
 
+  console.log(allTheImages);
+
   useEffect(() => {
     const getAllTheImages = async () => {
       const allImages = await getAllTheEntities();
@@ -37,18 +39,26 @@ function HomePage(props) {
         <div className='grid grid-cols-5 gap-4'>
           {allTheImages?.map((image) => {
             return (
-              <div className='transition duration-500 transform hover:scale-105 hover:shadow-lg hover:shadow-indigo-900'>
-                <img
-                  key={image.picUrl}
-                  src={image.picUrl}
-                  alt='all-the-images'
-                  className='w-full h-full cursor-pointer rounded-xl'
-                  onClick={() => {
-                    setCurrentImage(image.picUrl);
-                    setShowModal(true);
-                    setCurrentPrompt(image.prompt);
-                  }}
-                />
+              <div
+                id='picture-div'
+                className='transition duration-500 transform hover:scale-105 hover:shadow-lg hover:shadow-white'
+              >
+                <div className='group'>
+                  <img
+                    key={image.picUrl}
+                    src={image.picUrl}
+                    alt='all-the-images'
+                    className='w-full h-full cursor-pointer rounded-xl'
+                    onClick={() => {
+                      setCurrentImage(image.picUrl);
+                      setShowModal(true);
+                      setCurrentPrompt(image.prompt);
+                    }}
+                  />
+                  <div className='invisible p-2 text-sm font-semibold text-center text-white truncate rounded-b-lg cursor-pointer group-hover:visible'>
+                    {image.prompt}
+                  </div>
+                </div>
               </div>
             );
           })}
